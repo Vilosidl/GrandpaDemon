@@ -1,5 +1,5 @@
 # Grandpa Demon
-A mod created by ItzKiba.
+A mod created by Dovi & ItzKiba.
 
 ![Title](resources/readme/difficulties.png)
 
