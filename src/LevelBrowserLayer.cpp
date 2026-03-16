@@ -3,107 +3,74 @@
 #include "ListManager.h"
 
 class $modify(GrDLevelBrowserLayer, LevelBrowserLayer) {
-
     struct Fields {
         int m_currentPage = 0;
-        int m_furthestLoadedPage = 0;
-        int m_lowIdx = 0;
     };
 
     bool init(GJSearchObject* p0) {
-
-        if (!ListManager::isSupremeSearching) {
-            LevelBrowserLayer::init(p0);
-            return true;
-        }
-
-        if (p0->m_searchType != SearchType::Type19) {
+        if (!ListManager::isSupremeSearching || p0->m_searchType != SearchType::Type19) {
             LevelBrowserLayer::init(p0);
             return true;
         }
 
         this->m_fields->m_currentPage = 0;
-        int page = this->m_fields->m_currentPage;
-        this->m_fields->m_lowIdx = page * 10;
+        int maxR = ListManager::currentSearchMax;
+        int minR = std::max(ListManager::currentSearchMin, maxR - 9);
 
-        LevelBrowserLayer::init(ListManager::getSearchObject(499, 489));
+        LevelBrowserLayer::init(ListManager::getSearchObject(maxR, minR));
         return true;
     }
 
-    // TodoReturn loadPage(GJSearchObject* p0) {
-
-    //     if (!ListManager::isSupremeSearching) {
-    //         LevelBrowserLayer::loadPage(p0);
-    //         return;
-    //     }
-
-    //     LevelBrowserLayer::loadPage(p0);
-    //     return;
-        
-    // }
-
     void loadLevelsFinished(cocos2d::CCArray* p0, char const* p1, int p2) {
         LevelBrowserLayer::loadLevelsFinished(p0, p1, p2);
-        if (!ListManager::isSupremeSearching) {
-            return;
-        }
-        if (this->m_searchObject->m_searchType != SearchType::Type19) {
-            return;
-        }
-        auto prevBtn = this->m_leftArrow;
-        auto nextBtn = this->m_rightArrow;
+        if (!ListManager::isSupremeSearching || this->m_searchObject->m_searchType != SearchType::Type19) return;
 
         hideStuff();
+        this->m_leftArrow->setVisible(this->m_fields->m_currentPage > 0);
 
-        prevBtn->setVisible(true);
-        nextBtn->setVisible(true);
-
-        if (this->m_fields->m_currentPage <= 0) {
-            prevBtn->setVisible(false);
-        } else if (this->m_fields->m_currentPage >= 24) {
-            nextBtn->setVisible(false);
-        }
+        int totalLevels = ListManager::currentSearchMax - ListManager::currentSearchMin + 1;
+        int maxPages = (totalLevels - 1) / 10;
+        this->m_rightArrow->setVisible(this->m_fields->m_currentPage < maxPages);
     }
 
     void onNextPage(CCObject* sender) {
         LevelBrowserLayer::onNextPage(sender);
-        if (!ListManager::isSupremeSearching) {
-            return;
-        }
-        if (this->m_searchObject->m_searchType != SearchType::Type19) {
-            return;
-        }
+        if (!ListManager::isSupremeSearching || this->m_searchObject->m_searchType != SearchType::Type19) return;
 
-        if (this->m_fields->m_currentPage < 24) {
+        int totalLevels = ListManager::currentSearchMax - ListManager::currentSearchMin + 1;
+        int maxPages = (totalLevels - 1) / 10;
+
+        if (this->m_fields->m_currentPage < maxPages) {
             this->m_fields->m_currentPage += 1;
+            nextBtnActions();
         }
-        nextBtnActions();
-        
     }
 
     void onPrevPage(CCObject* sender) {
         LevelBrowserLayer::onPrevPage(sender);
-        if (!ListManager::isSupremeSearching) {
-            return;
-        }
-        if (this->m_searchObject->m_searchType != SearchType::Type19) {
-            return;
-        }
+        if (!ListManager::isSupremeSearching || this->m_searchObject->m_searchType != SearchType::Type19) return;
+
         if (this->m_fields->m_currentPage > 0) {
             this->m_fields->m_currentPage -= 1;
+            nextBtnActions();
         }
-        nextBtnActions();
-        
     }
 
     void nextBtnActions() {
         hideStuff();
-        LevelBrowserLayer::loadPage(ListManager::getSearchObject(499 - this->m_fields->m_currentPage * 10, 489 - this->m_fields->m_currentPage * 10));
+        int maxR = ListManager::currentSearchMax - this->m_fields->m_currentPage * 10;
+        int minR = std::max(ListManager::currentSearchMin, maxR - 9);
+        LevelBrowserLayer::loadPage(ListManager::getSearchObject(maxR, minR));
     }
 
     void hideStuff() {
-        this->m_pageBtn->setVisible(false);
-        this->m_countText->setString(fmt::format("{} to {} of 250", this->m_fields->m_currentPage * 10 + 1, this->m_fields->m_currentPage * 10 + 10).c_str());
+        if (this->m_pageBtn) this->m_pageBtn->setVisible(false);
+        int start = this->m_fields->m_currentPage * 10 + 1;
+        int totalLevels = ListManager::currentSearchMax - ListManager::currentSearchMin + 1;
+        int end = std::min(start + 9, totalLevels);
+
+        if (this->m_countText) {
+            this->m_countText->setString(fmt::format("{} to {} of {}", start, end, totalLevels).c_str());
+        }
     }
 };
-

@@ -10,7 +10,7 @@ class EffectsManager {
             if (aredlPos == 0 && !Mod::get()->getSettingValue<bool>("grandpa-demon-disable")) {
                 return;
             }
-                
+
             if (layer->getChildByID("grd-infinity") != nullptr) {
                 return;
             }
@@ -46,7 +46,7 @@ class EffectsManager {
         }
 
         inline static void infinityBackground(LevelInfoLayer* layer, int aredlPos) {
-            
+
             if (Mod::get()->getSettingValue<bool>("infinite-demon-disable")) {
                 return;
             }
@@ -57,17 +57,18 @@ class EffectsManager {
 
             CCSprite* bg = nullptr;
 
-            CCObject* obj;
-            CCARRAY_FOREACH(layer->getChildren(), obj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(obj)) {
+            for (auto obj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(obj)) {
                     if (spr->getScaledContentSize().width >= CCDirector::sharedDirector()->getWinSize().width - 5) {
                         bg = spr;
                     }
                 }
             }
 
-            bg->setZOrder(-10);
-            bg->setColor({75, 75, 0});
+            if (bg) {
+                bg->setZOrder(-10);
+                bg->setColor({75, 75, 0});
+            }
 
             auto winSize = CCDirector::sharedDirector()->getWinSize();
             ccBlendFunc blending = {GL_ONE, GL_ONE};
@@ -78,13 +79,11 @@ class EffectsManager {
             float bg2_maxAlpha = 90.f;
             float bg2_offsetAlpha = 50.f;
 
-            CCObject* rObj;
-            CCARRAY_FOREACH(layer->getChildren(), rObj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(rObj)) {
+            for (auto rObj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(rObj)) {
                     if (spr->getPositionY() < 1) {
                         spr->setOpacity(50);
                     }
-                    
                 }
             }
 
@@ -92,7 +91,7 @@ class EffectsManager {
 
             CCSprite* bg1 = CCSprite::create("GrD_demon4_bg.png"_spr);
             bg1->setBlendFunc(blending);
-            float bg1_scale = winSize.width / bg1->getContentSize().width; 
+            float bg1_scale = winSize.width / bg1->getContentSize().width;
             bg1->setOpacity(0);
             bg1->setScale(bg1_scale);
             bg1->setColor({ 249, 249, 165 });
@@ -188,32 +187,32 @@ class EffectsManager {
             if (aredlPos == 0 && !Mod::get()->getSettingValue<bool>("grandpa-demon-disable")) {
                 bg1->setColor({ 121, 80, 255 });
                 bg2->setColor({ 233, 200, 255 });
-                bg->setColor({ 31, 0, 75 });
+                if (bg) bg->setColor({ 31, 0, 75 });
             }
         }
 
 
-
-
         inline static void mythicalBackground(LevelInfoLayer* layer, int aredlPos) {
-            
+
             if (Mod::get()->getSettingValue<bool>("infinite-demon-disable")) {
                 return;
             }
 
             CCSprite* bg = nullptr;
 
-            CCObject* obj;
-            CCARRAY_FOREACH(layer->getChildren(), obj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(obj)) {
+            // Geode v5: CCArrayExt
+            for (auto obj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(obj)) {
                     if (spr->getScaledContentSize().width >= CCDirector::sharedDirector()->getWinSize().width - 5) {
                         bg = spr;
                     }
                 }
             }
 
-            bg->setZOrder(-10);
-            bg->setColor({ 65, 41, 142 });
+            if (bg) {
+                bg->setZOrder(-10);
+                bg->setColor({ 65, 41, 142 });
+            }
 
             auto winSize = CCDirector::sharedDirector()->getWinSize();
             ccBlendFunc blending = {GL_ONE, GL_ONE};
@@ -221,13 +220,12 @@ class EffectsManager {
             float bg1_maxAlpha = 50.f;
             float bg1_offsetAlpha = 130.f;
 
-            CCObject* rObj;
-            CCARRAY_FOREACH(layer->getChildren(), rObj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(rObj)) {
+            // Geode v5: CCArrayExt
+            for (auto rObj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(rObj)) {
                     if (spr->getPositionY() < 1) {
                         spr->setOpacity(50);
                     }
-                    
                 }
             }
 
@@ -235,7 +233,7 @@ class EffectsManager {
 
             CCSprite* bg1 = CCSprite::create("GrD_demon4_bg.png"_spr);
             bg1->setBlendFunc(blending);
-            float bg1_scale = winSize.width / bg1->getContentSize().width; 
+            float bg1_scale = winSize.width / bg1->getContentSize().width;
             bg1->setOpacity(0);
             bg1->setScale(bg1_scale);
             bg1->setColor({ 76, 63, 118 });
@@ -281,24 +279,26 @@ class EffectsManager {
         }
 
         inline static void legendaryBackground(LevelInfoLayer* layer, int aredlPos) {
-            
+
             if (Mod::get()->getSettingValue<bool>("infinite-demon-disable")) {
                 return;
             }
 
             CCSprite* bg = nullptr;
 
-            CCObject* obj;
-            CCARRAY_FOREACH(layer->getChildren(), obj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(obj)) {
+            // Geode v5: CCArrayExt
+            for (auto obj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(obj)) {
                     if (spr->getScaledContentSize().width >= CCDirector::sharedDirector()->getWinSize().width - 5) {
                         bg = spr;
                     }
                 }
             }
 
-            bg->setZOrder(-10);
-            bg->setColor({ 207, 112, 254 });
+            if (bg) {
+                bg->setZOrder(-10);
+                bg->setColor({ 207, 112, 254 });
+            }
 
             auto winSize = CCDirector::sharedDirector()->getWinSize();
             ccBlendFunc blending = {GL_ONE, GL_ONE};
@@ -306,13 +306,12 @@ class EffectsManager {
             float bg1_maxAlpha = 40.f;
             float bg1_offsetAlpha = 100.f;
 
-            CCObject* rObj;
-            CCARRAY_FOREACH(layer->getChildren(), rObj) {
-                if (CCSprite* spr = dynamic_cast<CCSprite*>(rObj)) {
+            // Geode v5: CCArrayExt
+            for (auto rObj : CCArrayExt<CCNode*>(layer->getChildren())) {
+                if (auto spr = typeinfo_cast<CCSprite*>(rObj)) {
                     if (spr->getPositionY() < 1) {
                         spr->setOpacity(50);
                     }
-                    
                 }
             }
 
@@ -320,7 +319,7 @@ class EffectsManager {
 
             CCSprite* bg1 = CCSprite::create("GrD_demon4_bg.png"_spr);
             bg1->setBlendFunc(blending);
-            float bg1_scale = winSize.width / bg1->getContentSize().width; 
+            float bg1_scale = winSize.width / bg1->getContentSize().width;
             bg1->setOpacity(0);
             bg1->setScale(bg1_scale);
             bg1->setColor({ 55, 48, 78 });

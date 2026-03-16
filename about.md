@@ -1,5 +1,5 @@
 # <cy>Grandpa Demon</c>
-<cj>A mod created by ItzKiba.</c>
+<cj>A mod created by Dovi & ItzKiba.</c>
 
 ## Overview
 The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **<cr>However, there is no possible way that Acheron and ACU should be considered the same difficulty.</c>** Think that there should be more demon difficulties above Extreme? Look no further than the **<cl>Grandpa Demon mod!</c>**
@@ -16,11 +16,11 @@ The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **<c
 ## New Demon Difficulties
 The difficulties of extreme demons are chosen based on their positions on the [AREDL](https://aredl.pages.dev/#/).
 
-* Top 500 Demons - *<co>Supreme Demon</c>*
-* Top 250 Demons - *<cp>Ultimate Demon</c>*
-* Top 150 Demons - *<cj>Legendary Demon</c>*
-* Top 75 Demons - *<cl>Mythical Demon</c>*
-* Top 25 Demons - *<cy>Infinite Demon</c>*
+* Top 750 Demons - *<co>Supreme Demon</c>*
+* Top 500 Demons - *<cp>Ultimate Demon</c>*
+* Top 250 Demons - *<cj>Legendary Demon</c>*
+* Top 150 Demons - *<cl>Mythical Demon</c>*
+* Top 50 Demons - *<cy>Infinite Demon</c>*
 * Top 1 Demon - *<cr>Grandpa Demon</c>*
 
 ***Note:** Grandpa Demon is optional and can be disabled in the mod's settings.*
