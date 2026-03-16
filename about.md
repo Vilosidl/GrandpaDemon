@@ -1,5 +1,6 @@
 # <cy>Grandpa Demon</c>
-<cj>A mod created by Dovi & ItzKiba.</c>
+<cj>Fork by Dovi</cj>
+<cj>A mod created by ItzKiba.</cj>
 
 ## Overview
 The humble Extreme Demon is the highest difficulty in all of Geometry Dash. **<cr>However, there is no possible way that Acheron and ACU should be considered the same difficulty.</c>** Think that there should be more demon difficulties above Extreme? Look no further than the **<cl>Grandpa Demon mod!</c>**
