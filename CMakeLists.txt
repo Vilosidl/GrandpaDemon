@@ -8,7 +8,6 @@ project(GrandpaDemon VERSION 1.0.0)
 
 # Use GLOB_RECURSE instead of GLOB
 # to recursively add all source files 
-# under Global List Integrated/
 file(GLOB SOURCES
 	src/main.cpp
     src/ListManager.h
