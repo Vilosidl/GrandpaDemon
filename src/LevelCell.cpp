@@ -20,7 +20,6 @@ class $modify(LevelCell) {
         }
 
         int aredlPos = ListManager::getPositionOfID(m_level->m_levelID);
-        // Используем универсальный размер списка из ListManager
         if (aredlPos == -1 || aredlPos > ListManager::getMaxListSize()) {
             return;
         }

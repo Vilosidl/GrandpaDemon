@@ -9,7 +9,6 @@ using namespace geode::prelude;
 class $modify(MenuLayer) {
 
     struct Fields {
-        // В Geode v5 для веб-запросов используется TaskHolder вместо EventListener
         TaskHolder<web::WebResponse> m_listener;
     };
 
@@ -22,13 +21,10 @@ class $modify(MenuLayer) {
 
         auto req = web::WebRequest();
 
-        // Отправляем GET-запрос и привязываем его к нашему TaskHolder
         m_fields->m_listener.spawn(
             req.get("https://api.aredl.net/v2/api/aredl/levels"),
             [](web::WebResponse res) {
 
-                // В Geode v5 ответ (res) передается по значению, а не по указателю,
-                // поэтому вместо -> используется точка (.)
                 auto str = res.string().unwrapOr("Failed.");
 
                 if (res.code() != 200 || str == "Failed." || str == "-1") {
